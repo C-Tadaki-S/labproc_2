@@ -1,0 +1,255 @@
+Archive member included to satisfy reference by file (symbol)
+
+/usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memcpy-stub.o)
+                              sched.o (memcpy)
+/usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memset.o)
+                              sched.o (memset)
+
+Allocating common symbols
+Common symbol       size              file
+
+tcb                 0x4               sched.o
+tcb_list            0xe4              sched.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x0000000000000000 0x0000000001000000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+
+.boot           0x0000000000008000       0xdc
+ *(.boot)
+ .boot          0x0000000000008000       0xdc boot.o
+                0x0000000000008000                _start
+                0x0000000000008000                start
+                0x00000000000080e0                . = ALIGN (0x8)
+
+.text           0x00000000000080dc      0xb0c
+ *(.text*)
+ .text          0x00000000000080dc        0x0 boot.o
+ .text          0x00000000000080dc       0xf8 switch.o
+                0x00000000000080dc                delay
+                0x00000000000080e8                enable_irq
+                0x0000000000008110                panic
+                0x0000000000008118                swi
+                0x000000000000814c                irq
+                0x000000000000817c                task_switch
+ .text          0x00000000000081d4      0x4e8 sched.o
+                0x00000000000081d4                yield
+                0x00000000000081e8                getpid
+                0x0000000000008200                getticks
+                0x0000000000008218                schedule
+                0x00000000000082b8                trata_swi
+                0x0000000000008350                trata_irq
+                0x00000000000083a8                sched_init
+                0x000000000000857c                insert_tcb
+ .text          0x00000000000086bc      0x158 main.o
+                0x00000000000086bc                system_main
+                0x00000000000086f0                user1_main
+                0x000000000000875c                user2_main
+                0x00000000000087b8                user3_main
+ .text          0x0000000000008814      0x11c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memcpy-stub.o)
+                0x0000000000008814                memcpy
+ .text          0x0000000000008930      0x118 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memset.o)
+                0x0000000000008930                memset
+ .text          0x0000000000008a48      0x1a0 ./libmem//libmem.a
+                0x0000000000008a48                mmu_stop
+                0x0000000000008a74                tlb_invalida
+                0x0000000000008a98                mmu_start
+                0x0000000000008ae0                map_section
+                0x0000000000008b48                map_invalid
+                0x0000000000008b88                mmu_flat
+
+.glue_7         0x0000000000008be8        0x0
+ .glue_7        0x0000000000008be8        0x0 linker stubs
+
+.glue_7t        0x0000000000008be8        0x0
+ .glue_7t       0x0000000000008be8        0x0 linker stubs
+
+.vfp11_veneer   0x0000000000008be8        0x0
+ .vfp11_veneer  0x0000000000008be8        0x0 linker stubs
+
+.v4_bx          0x0000000000008be8        0x0
+ .v4_bx         0x0000000000008be8        0x0 linker stubs
+
+.iplt           0x0000000000008be8        0x0
+ .iplt          0x0000000000008be8        0x0 boot.o
+
+.rel.dyn        0x0000000000008be8        0x0
+ .rel.iplt      0x0000000000008be8        0x0 boot.o
+                0x0000000000100000                . = 0x100000
+
+.data           0x0000000000008be8        0x8
+ *(.data*)
+ .data          0x0000000000008be8        0x0 boot.o
+ .data          0x0000000000008be8        0x0 switch.o
+ .data          0x0000000000008be8        0x0 sched.o
+ .data          0x0000000000008be8        0x8 main.o
+                0x0000000000008be8                a
+                0x0000000000008bec                b
+ .data          0x0000000000008bf0        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memcpy-stub.o)
+ .data          0x0000000000008bf0        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memset.o)
+ .data          0x0000000000008bf0        0x0 ./libmem//libmem.a
+
+.igot.plt       0x0000000000008bf0        0x0
+ .igot.plt      0x0000000000008bf0        0x0 boot.o
+
+.rodata
+ *(.rodata*)
+
+.bss            0x0000000000008bf0       0xf0
+                0x0000000000008bf0                bss_begin = .
+ *(.bss*)
+ .bss           0x0000000000008bf0        0x0 boot.o
+ .bss           0x0000000000008bf0        0x0 switch.o
+ .bss           0x0000000000008bf0        0x8 sched.o
+                0x0000000000008bf0                ll_size
+                0x0000000000008bf4                last_tid
+ .bss           0x0000000000008bf8        0x0 main.o
+ .bss           0x0000000000008bf8        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memcpy-stub.o)
+ .bss           0x0000000000008bf8        0x0 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memset.o)
+ .bss           0x0000000000008bf8        0x0 ./libmem//libmem.a
+ *(COMMON)
+ COMMON         0x0000000000008bf8       0xe8 sched.o
+                0x0000000000008bf8                tcb
+                0x0000000000008bfc                tcb_list
+                0x0000000000008ce0                bss_end = .
+
+.secure_bss     0x0000000000008ce0        0xc
+ *(.secure_bss)
+ .secure_bss    0x0000000000008ce0        0xc sched.o
+                0x0000000000008ce0                tid
+                0x0000000000008ce4                head
+                0x0000000000008ce8                ticks
+                0x0000000000500000                . = 0x500000
+
+.sched          0x000000000000c000     0x4000
+ *(.sched)
+ .sched         0x000000000000c000     0x4000 sched.o
+                0x0000000000014000                . = (. + 0x4000)
+                0x0000000000014000                stack_sys = .
+
+.heapstack      0x0000000000010000     0xc000
+                0x0000000000010000                heap_addr = .
+                0x0000000000018000                . = (. + 0x8000)
+ *fill*         0x0000000000010000     0x8000 
+                0x0000000000018000                stack_irq = .
+                0x0000000000019000                . = (. + 0x1000)
+ *fill*         0x0000000000018000     0x1000 
+                0x0000000000019000                stack_user1 = .
+                0x000000000001a000                . = (. + 0x1000)
+ *fill*         0x0000000000019000     0x1000 
+                0x000000000001a000                stack_user2 = .
+                0x000000000001b000                . = (. + 0x1000)
+ *fill*         0x000000000001a000     0x1000 
+                0x000000000001b000                stack_user3 = .
+                0x000000000001c000                . = (. + 0x1000)
+ *fill*         0x000000000001b000     0x1000 
+LOAD boot.o
+LOAD switch.o
+LOAD sched.o
+LOAD main.o
+LOAD /usr/lib/gcc/arm-none-eabi/9.2.1//libgcc.a
+LOAD /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a
+LOAD ./libmem//libmem.a
+OUTPUT(tasks.elf elf32-littlearm)
+LOAD linker stubs
+
+.ARM.attributes
+                0x0000000000000000       0x30
+ .ARM.attributes
+                0x0000000000000000       0x18 boot.o
+ .ARM.attributes
+                0x0000000000000018       0x14 switch.o
+ .ARM.attributes
+                0x000000000000002c       0x2f sched.o
+ .ARM.attributes
+                0x000000000000005b       0x2f main.o
+ .ARM.attributes
+                0x000000000000008a       0x2a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memcpy-stub.o)
+ .ARM.attributes
+                0x00000000000000b4       0x2a /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memset.o)
+ .ARM.attributes
+                0x00000000000000de       0x2f ./libmem//libmem.a
+
+.comment        0x0000000000000000       0xcd
+ .comment       0x0000000000000000       0x59 sched.o
+                                         0x5a (size before relaxing)
+ .comment       0x0000000000000059       0x5a main.o
+ .comment       0x0000000000000059       0x4e /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memcpy-stub.o)
+                                         0x4f (size before relaxing)
+ .comment       0x00000000000000a7       0x4f /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memset.o)
+ .comment       0x00000000000000a7       0x26 ./libmem//libmem.a
+                                         0x27 (size before relaxing)
+
+.debug_line     0x0000000000000000      0x96c
+ .debug_line    0x0000000000000000       0x69 boot.o
+ .debug_line    0x0000000000000069       0x65 switch.o
+ .debug_line    0x00000000000000ce      0x1c8 sched.o
+ .debug_line    0x0000000000000296      0x11e main.o
+ .debug_line    0x00000000000003b4      0x263 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memcpy-stub.o)
+ .debug_line    0x0000000000000617      0x279 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memset.o)
+ .debug_line    0x0000000000000890       0xdc ./libmem//libmem.a
+
+.debug_info     0x0000000000000000     0x267a
+ .debug_info    0x0000000000000000       0x26 boot.o
+ .debug_info    0x0000000000000026       0x26 switch.o
+ .debug_info    0x000000000000004c      0x476 sched.o
+ .debug_info    0x00000000000004c2      0x194 main.o
+ .debug_info    0x0000000000000656      0xf35 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memcpy-stub.o)
+ .debug_info    0x000000000000158b      0xf21 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memset.o)
+ .debug_info    0x00000000000024ac      0x1ce ./libmem//libmem.a
+
+.debug_abbrev   0x0000000000000000      0x868
+ .debug_abbrev  0x0000000000000000       0x14 boot.o
+ .debug_abbrev  0x0000000000000014       0x14 switch.o
+ .debug_abbrev  0x0000000000000028      0x1de sched.o
+ .debug_abbrev  0x0000000000000206      0x119 main.o
+ .debug_abbrev  0x000000000000031f      0x223 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memcpy-stub.o)
+ .debug_abbrev  0x0000000000000542      0x217 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memset.o)
+ .debug_abbrev  0x0000000000000759      0x10f ./libmem//libmem.a
+
+.debug_aranges  0x0000000000000000       0xe0
+ .debug_aranges
+                0x0000000000000000       0x20 boot.o
+ .debug_aranges
+                0x0000000000000020       0x20 switch.o
+ .debug_aranges
+                0x0000000000000040       0x20 sched.o
+ .debug_aranges
+                0x0000000000000060       0x20 main.o
+ .debug_aranges
+                0x0000000000000080       0x20 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memcpy-stub.o)
+ .debug_aranges
+                0x00000000000000a0       0x20 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memset.o)
+ .debug_aranges
+                0x00000000000000c0       0x20 ./libmem//libmem.a
+
+.debug_str      0x0000000000000000      0xbe5
+ .debug_str     0x0000000000000000       0x53 boot.o
+ .debug_str     0x0000000000000053        0x9 switch.o
+                                         0x55 (size before relaxing)
+ .debug_str     0x000000000000005c      0x26a sched.o
+                                        0x2f4 (size before relaxing)
+ .debug_str     0x00000000000002c6       0x34 main.o
+                                        0x1aa (size before relaxing)
+ .debug_str     0x00000000000002fa      0x776 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memcpy-stub.o)
+                                        0x8cc (size before relaxing)
+ .debug_str     0x0000000000000a70       0x8f /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memset.o)
+                                        0x8a7 (size before relaxing)
+ .debug_str     0x0000000000000aff       0xe6 ./libmem//libmem.a
+                                        0x18d (size before relaxing)
+
+.debug_frame    0x0000000000000000      0x2c0
+ .debug_frame   0x0000000000000000       0xec sched.o
+ .debug_frame   0x00000000000000ec       0x80 main.o
+ .debug_frame   0x000000000000016c       0x3c /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memcpy-stub.o)
+ .debug_frame   0x00000000000001a8       0x48 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memset.o)
+ .debug_frame   0x00000000000001f0       0xd0 ./libmem//libmem.a
+
+.debug_loc      0x0000000000000000      0x490
+ .debug_loc     0x0000000000000000      0x1eb /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memcpy-stub.o)
+ .debug_loc     0x00000000000001eb      0x2a5 /usr/lib/gcc/arm-none-eabi/9.2.1/../../../arm-none-eabi/lib//libc.a(lib_a-memset.o)

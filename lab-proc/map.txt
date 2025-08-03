@@ -1,0 +1,188 @@
+
+Allocating common symbols
+Common symbol       size              file
+
+tcb                 0x4               sched.o
+tcb_list            0x13000           sched.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+RAM              0x0000000000000000 0x0000000001000000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+
+.boot           0x0000000000008000       0xdc
+ *(.boot)
+ .boot          0x0000000000008000       0xdc boot.o
+                0x0000000000008000                start
+                0x00000000000080e0                . = ALIGN (0x8)
+
+.text           0x00000000000080dc      0x738
+ *(.text*)
+ .text          0x00000000000080dc        0x0 boot.o
+ .text          0x00000000000080dc       0xf8 switch.o
+                0x00000000000080dc                delay
+                0x00000000000080e8                enable_irq
+                0x0000000000008110                panic
+                0x0000000000008118                swi
+                0x000000000000814c                irq
+                0x000000000000817c                task_switch
+ .text          0x00000000000081d4      0x4e8 sched.o
+                0x00000000000081d4                yield
+                0x00000000000081e8                getpid
+                0x0000000000008200                getticks
+                0x0000000000008218                schedule
+                0x00000000000082b8                trata_swi
+                0x0000000000008350                trata_irq
+                0x00000000000083a8                sched_init
+                0x000000000000857c                insert_tcb
+ .text          0x00000000000086bc      0x158 main.o
+                0x00000000000086bc                system_main
+                0x00000000000086f0                user1_main
+                0x000000000000875c                user2_main
+                0x00000000000087b8                user3_main
+
+.glue_7         0x0000000000008814        0x0
+ .glue_7        0x0000000000008814        0x0 linker stubs
+
+.glue_7t        0x0000000000008814        0x0
+ .glue_7t       0x0000000000008814        0x0 linker stubs
+
+.vfp11_veneer   0x0000000000008814        0x0
+ .vfp11_veneer  0x0000000000008814        0x0 linker stubs
+
+.v4_bx          0x0000000000008814        0x0
+ .v4_bx         0x0000000000008814        0x0 linker stubs
+
+.iplt           0x0000000000008814        0x0
+ .iplt          0x0000000000008814        0x0 boot.o
+
+.rel.dyn        0x0000000000008814        0x0
+ .rel.iplt      0x0000000000008814        0x0 boot.o
+                0x0000000000100000                . = 0x100000
+
+.rodata
+ *(.rodata*)
+
+.data           0x0000000000008814        0x8
+ *(.data*)
+ .data          0x0000000000008814        0x0 boot.o
+ .data          0x0000000000008814        0x0 switch.o
+ .data          0x0000000000008814        0x0 sched.o
+ .data          0x0000000000008814        0x8 main.o
+                0x0000000000008814                a
+                0x0000000000008818                b
+
+.igot.plt       0x000000000000881c        0x0
+ .igot.plt      0x000000000000881c        0x0 boot.o
+
+.bss            0x0000000000008820    0x1300c
+                0x0000000000008820                bss_begin = .
+ *(.bss*)
+ .bss           0x0000000000008820        0x0 boot.o
+ .bss           0x0000000000008820        0x0 switch.o
+ .bss           0x0000000000008820        0x8 sched.o
+                0x0000000000008820                ll_size
+                0x0000000000008824                last_tid
+ .bss           0x0000000000008828        0x0 main.o
+ *(COMMON)
+ COMMON         0x0000000000008828    0x13004 sched.o
+                0x0000000000008828                tcb
+                0x000000000000882c                tcb_list
+                0x000000000001b82c                bss_end = .
+
+.secure_bss     0x000000000001b830        0xc
+ *(.secure_bss)
+ .secure_bss    0x000000000001b830        0xc sched.o
+                0x000000000001b830                tid
+                0x000000000001b834                head
+                0x000000000001b838                ticks
+
+.heapstack      0x000000000001b840     0xc000
+                0x000000000001b840                heap_addr = .
+                0x0000000000023840                . = (. + 0x8000)
+ *fill*         0x000000000001b840     0x8000 
+                0x0000000000023840                stack_irq = .
+                0x0000000000024840                . = (. + 0x1000)
+ *fill*         0x0000000000023840     0x1000 
+                0x0000000000024840                stack_user1 = .
+                0x0000000000025840                . = (. + 0x1000)
+ *fill*         0x0000000000024840     0x1000 
+                0x0000000000025840                stack_user2 = .
+                0x0000000000026840                . = (. + 0x1000)
+ *fill*         0x0000000000025840     0x1000 
+                0x0000000000026840                stack_user3 = .
+                0x0000000000027840                . = (. + 0x1000)
+ *fill*         0x0000000000026840     0x1000 
+                0x0000000000500000                . = 0x500000
+
+.sched
+ *(.sched)
+                0x0000000000504000                . = (. + 0x4000)
+                0x0000000000504000                stack_sys = .
+LOAD boot.o
+LOAD switch.o
+LOAD sched.o
+LOAD main.o
+OUTPUT(dummy.elf elf32-littlearm)
+LOAD linker stubs
+
+.ARM.attributes
+                0x0000000000000000       0x30
+ .ARM.attributes
+                0x0000000000000000       0x18 boot.o
+ .ARM.attributes
+                0x0000000000000018       0x14 switch.o
+ .ARM.attributes
+                0x000000000000002c       0x2f sched.o
+ .ARM.attributes
+                0x000000000000005b       0x2f main.o
+
+.comment        0x0000000000000000       0x59
+ .comment       0x0000000000000000       0x59 sched.o
+                                         0x5a (size before relaxing)
+ .comment       0x0000000000000059       0x5a main.o
+
+.debug_line     0x0000000000000000      0x3b6
+ .debug_line    0x0000000000000000       0x69 boot.o
+ .debug_line    0x0000000000000069       0x65 switch.o
+ .debug_line    0x00000000000000ce      0x1c8 sched.o
+ .debug_line    0x0000000000000296      0x120 main.o
+
+.debug_info     0x0000000000000000      0x631
+ .debug_info    0x0000000000000000       0x26 boot.o
+ .debug_info    0x0000000000000026       0x26 switch.o
+ .debug_info    0x000000000000004c      0x461 sched.o
+ .debug_info    0x00000000000004ad      0x184 main.o
+
+.debug_abbrev   0x0000000000000000      0x2e2
+ .debug_abbrev  0x0000000000000000       0x14 boot.o
+ .debug_abbrev  0x0000000000000014       0x14 switch.o
+ .debug_abbrev  0x0000000000000028      0x1c9 sched.o
+ .debug_abbrev  0x00000000000001f1       0xf1 main.o
+
+.debug_aranges  0x0000000000000000       0x80
+ .debug_aranges
+                0x0000000000000000       0x20 boot.o
+ .debug_aranges
+                0x0000000000000020       0x20 switch.o
+ .debug_aranges
+                0x0000000000000040       0x20 sched.o
+ .debug_aranges
+                0x0000000000000060       0x20 main.o
+
+.debug_str      0x0000000000000000      0x300
+ .debug_str     0x0000000000000000       0x53 boot.o
+ .debug_str     0x0000000000000053        0x9 switch.o
+                                         0x55 (size before relaxing)
+ .debug_str     0x000000000000005c      0x270 sched.o
+                                        0x2ef (size before relaxing)
+ .debug_str     0x00000000000002cc       0x34 main.o
+                                        0x19f (size before relaxing)
+
+.debug_frame    0x0000000000000000      0x16c
+ .debug_frame   0x0000000000000000       0xec sched.o
+ .debug_frame   0x00000000000000ec       0x80 main.o
